@@ -1,6 +1,6 @@
 var Terminado = {
     create: function() {
-        var mensaje = "Ha perdido.\nPuntaje final: " + puntos + "\n\nPresione ENTER para reiniciar";
+        var mensaje = "Ha perdido.\nPuntaje final: " + puntos + "\n\nPresione ENTER\npara reiniciar";
 
         var texto = juego.add.text(juego.width / 2, juego.height / 2, mensaje, {
             font: "22px Arial",
