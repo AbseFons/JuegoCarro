@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Juego de Carreras</title>
     <script src="phaser.js"></script>
-    
+
     <script src="juego.js"></script>
     <script src="terminado.js"></script>
     <script src="principal.js"></script>
-    
+
     <style>
         body {
             margin: 0;
@@ -19,13 +20,21 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            background-color: #2c3e50; 
+            background-color: #2c3e50;
             font-family: Arial, sans-serif;
             color: white;
+            touch-action: none;
+            user-select: none;
         }
+
         #bloque_juego {
-            box-shadow: 0 0 20px rgba(0,0,0,0.8); 
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
         }
+
+        #bloque_juego canvas {
+            touch-action: none;
+        }
+
         footer {
             margin-top: 20px;
             font-size: 20px;
@@ -35,9 +44,11 @@
         }
     </style>
 </head>
+
 <body>
     <div id="bloque_juego"></div>
-    
+
     <footer>Abner Fonseca Melgarejo</footer>
 </body>
+
 </html>

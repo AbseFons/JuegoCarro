@@ -32,6 +32,9 @@ var corazones = [];
 var gasolinasNivel2;
 var velocidadMaxima;
 
+var tocarIzquierda = false;
+var tocarDerecha = false;
+
 var invulnerable = false;
 
 var Juego = {
@@ -54,6 +57,8 @@ var Juego = {
         juego.physics.startSystem(Phaser.Physics.ARCADE);
 
         invulnerable = false;
+        tocarIzquierda = false;
+        tocarDerecha = false;
 
         gasolinasNivel2 = 0;
         velocidadMaxima = 1000;
@@ -82,6 +87,9 @@ var Juego = {
 
         cursores = juego.input.keyboard.createCursorKeys();
 
+        juego.input.onDown.add(this.tocarPantalla, this);
+        juego.input.onUp.add(this.soltarPantalla, this);
+
         puntos = 0;
         vidas = 3;
         nivel = 1;
@@ -106,9 +114,9 @@ var Juego = {
     update: function () {
         fondo.tilePosition.y += velocidadFondo;
 
-        if (cursores.right.isDown && carro.position.x < 245) {
+        if ((cursores.right.isDown || tocarDerecha) && carro.position.x < 245) {
             carro.position.x += 5;
-        } else if (cursores.left.isDown && carro.position.x > 45) {
+        } else if ((cursores.left.isDown || tocarIzquierda) && carro.position.x > 45) {
             carro.position.x -= 5;
         }
 
@@ -288,5 +296,20 @@ var Juego = {
         }, this);
 
         txtNivel.text = "NIVEL 2";
+    },
+
+    tocarPantalla: function (pointer) {
+        if (pointer.x < juego.width / 2) {
+            tocarIzquierda = true;
+            tocarDerecha = false;
+        } else {
+            tocarDerecha = true;
+            tocarIzquierda = false;
+        }
+    },
+
+    soltarPantalla: function () {
+        tocarIzquierda = false;
+        tocarDerecha = false;
     },
 };
