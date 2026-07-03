@@ -29,6 +29,9 @@ var hud;
 var txtGasolinas;
 var corazones = [];
 
+var gasolinasNivel2;
+var velocidadMaxima;
+
 var invulnerable = false;
 
 var Juego = {
@@ -49,6 +52,11 @@ var Juego = {
 
     create: function () {
         juego.physics.startSystem(Phaser.Physics.ARCADE);
+
+        invulnerable = false;
+
+        gasolinasNivel2 = 0;
+        velocidadMaxima = 1000;
 
         fondo = juego.add.tileSprite(0, 0, 290, 540, 'bg');
 
@@ -214,6 +222,11 @@ var Juego = {
 
         if (gasolinasConsumidas >= 3 && nivel === 1) {
             this.pasarNivelDos();
+            return;
+        }
+
+        if (nivel === 2) {
+            this.aumentarVelocidadNivelDos();
         }
     },
 
@@ -227,7 +240,7 @@ var Juego = {
         nivel = 2;
         txtNivel.text = "NIVEL 2";
         txtGasolinas.text = "GAS: 3/3";
-        
+
         velocidadFondo = 5;
         velocidadEnemigo = 300;
         velocidadGasolina = 300;
@@ -249,5 +262,31 @@ var Juego = {
         juego.time.events.add(1200, function () {
             aviso.destroy();
         }, this);
-    }
+    },
+
+    aumentarVelocidadNivelDos: function () {
+        gasolinasNivel2++;
+
+        velocidadFondo += 1.2;
+        velocidadEnemigo += 70;
+        velocidadGasolina += 70;
+
+        if (velocidadEnemigo > velocidadMaxima) {
+            velocidadEnemigo = velocidadMaxima;
+        }
+
+        if (velocidadGasolina > velocidadMaxima) {
+            velocidadGasolina = velocidadMaxima;
+        }
+
+        enemigos.forEachAlive(function (enemigo) {
+            enemigo.body.velocity.y = velocidadEnemigo;
+        }, this);
+
+        gasolinas.forEachAlive(function (gasolina) {
+            gasolina.body.velocity.y = velocidadGasolina;
+        }, this);
+
+        txtNivel.text = "NIVEL 2";
+    },
 };
